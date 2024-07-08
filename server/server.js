@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/images", express.static("images"));
 app.use("/tweetImages", express.static("tweetImages"));
 
-mongoose.connect("mongodb://127.0.0.1/mernDB", (err) => {
+mongoose.connect("mongodb+srv://aniket021978:aniket021978@cluster0.8zslwh8.mongodb.net/twitter-clone-app", (err) => {
   if (err) console.log(err);
   else console.log("mongdb is connected");
 });
@@ -58,6 +58,7 @@ app.post("/signup", async (req, res) => {
     user.password = await bcrypt.hash(req.body.password, 10);
 
     const dbUser = new User({
+      email:user.email,
       username: user.username.toLowerCase(),
       password: user.password,
       avatar: "initial-avatar.png",

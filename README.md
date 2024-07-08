@@ -1,67 +1,44 @@
-# MERN-Twitter-clone
+# Express Application with Google Sign-In
 
-Twitter clone made using MERN Stack.
-
-![twitter-pic](twitter-pic.png)
+This project is an Express application In Which Users can sign in with their Google accounts, and their information will be stored in a MongoDB database.
 
 ## Features
 
-- Sign up/ Sign in via JWT Token
-- Customize account
-- Tweet
-- Comment
-- Retweet
-- Follow user
-- Like tweets and comments
-- Edit tweets and comments
-- Delete tweets and comments
+- User session management with Express session
+- MongoDB integration for storing user information
 
-## Contribute
+## Prerequisites
 
-### Prerequisites
+- Node.js and npm
+- MongoDB
 
-- node
-- npm
-- mongodb
+## Installation
 
-1. Fork this repository
-2. Clone this repository
-3. Install server dependencies
+1. Clone the repository:
 
-```
-$ cd server
-$ npm install
-```
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
 
-4. Install client dependencies
+2. Install dependencies:
 
-```
-$ cd client
-$ npm install
-```
+    ```bash
+    npm install
 
-### Run the app
+## Usage
 
-1. Start mongodb locally
+1. Start the server:
 
-```
-$ mongod
-```
+    ```bash
+    npm start
+    ```
 
-2. Start the server
+2. Open your browser and navigate to `http://localhost:5000`. 
 
-```
-$ cd server
-$ nodemon server.js
-```
+## Project Structure
 
-3. Start the client
-
-```
-$ cd client
-$ npm start
-```
-
-## License
-
-This project is made available under the MIT License.
+- `app.js`: Main application file
+- `models/`: Directory containing Mongoose models
+- `public/`: Directory containing static files (if any)
+- `views/`: Directory containing view templates (if any)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { BsTwitter } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { useToast } from "@chakra-ui/toast";
 function SignupBody() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const toast = useToast();
   const successToast = () => {
     toast({
@@ -24,6 +25,10 @@ function SignupBody() {
     setPassword(e.target.value);
   };
 
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -32,6 +37,7 @@ function SignupBody() {
     const newPerson = {
       username: userName,
       password: password,
+      email: email,
     };
 
     fetch("http://localhost:5000/signup", {
@@ -50,8 +56,11 @@ function SignupBody() {
           }, 600);
         }
       })
-      .then(setUserName(""))
-      .then(setPassword(""));
+      .then(() => {
+        setUserName("");
+        setPassword("");
+        setEmail("");
+      });
   };
 
   return (
@@ -80,6 +89,15 @@ function SignupBody() {
           method="post"
           onSubmit={handleSubmit}
         >
+          <input
+            required
+            className="homeContainer-input"
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={handleChangeEmail}
+          ></input>
+          <br></br>
           <input
             required
             className="homeContainer-input"
