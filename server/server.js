@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/images", express.static("images"));
 app.use("/tweetImages", express.static("tweetImages"));
 
-mongoose.connect("mongodb+srv://aniket021978:aniket021978@cluster0.8zslwh8.mongodb.net/twitter-clone-app", (err) => {
+mongoose.connect("mongodb://localhost:27017/twitter", (err) => {
   if (err) console.log(err);
   else console.log("mongdb is connected");
 });
