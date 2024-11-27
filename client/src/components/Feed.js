@@ -10,7 +10,6 @@ import "reactjs-popup/dist/index.css";
 
 function Feed() {
   const [input, setInput] = useState("");
-  // const [imageInput, setImageInput] = useState();
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeUser, setActiveUser] = useState("");
@@ -21,9 +20,10 @@ function Feed() {
   const [tweetCount, setTweetCount] = useState("20");
 
   const checkInput = input || img;
+  const apiUrl = process.env.REACT_APP_API_URL; // Get the API URL from the environment variable
 
   async function populateTweets() {
-    const req = await fetch("http://localhost:5000/feed", {
+    const req = await fetch(`${apiUrl}/feed`, {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -43,7 +43,7 @@ function Feed() {
 
   async function addTweets(e) {
     e.preventDefault();
-    const req = await fetch(`http://localhost:5000/feed?t=${tweetCount}`, {
+    const req = await fetch(`${apiUrl}/feed?t=${tweetCount}`, {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -96,11 +96,6 @@ function Feed() {
       tweetId: moment(),
     };
 
-    // let form = document.getElementById("form");
-    // let formData = new FormData(form);
-
-    // formData.append("main", JSON.stringify(tweet));
-    // console.log(formData);
     const data = { tweet: JSON.stringify(tweet), image: img };
     const action = e.target.action;
 
@@ -132,14 +127,14 @@ function Feed() {
         <img
           className="tweet-avatar"
           style={{ marginBottom: "0" }}
-          src={`http://localhost:5000/images/${userAvatar}`}
+          src={`${apiUrl}/images/${userAvatar}`}
         ></img>
 
         <form
           onSubmit={handleSubmit}
           method="post"
           encType="multipart/form-data"
-          action="http://localhost:5000/feed"
+          action={`${apiUrl}/feed`}
           className="tweet-form"
           id="form"
         >
@@ -173,7 +168,6 @@ function Feed() {
               disabled={!checkInput}
               type="submit"
             >
-              {" "}
               Tweet
             </button>
           </div>
