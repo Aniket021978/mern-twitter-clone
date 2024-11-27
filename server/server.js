@@ -77,7 +77,7 @@ app.get("/feed", async (req, res) => {
   const tweetsToSkip = req.query.t || 0;
 
   try {
-    const decoded = jwt.verify(token, "newSecretKey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const username = decoded.username;
     const user = await User.findOne({ username: username });
     Tweet.find({ isRetweeted: false })
@@ -436,7 +436,7 @@ app.get("/profile/:userName", async (req, res) => {
   const token = req.headers["x-access-token"];
 
   try {
-    const decoded = jwt.verify(token, "newSecretKey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const username = decoded.username;
     User.findOne({ username: req.params.userName })
       .populate({
