@@ -40,7 +40,8 @@ function SignupBody() {
       email: email,
     };
 
-    fetch("http://localhost:5000/signup", {
+    // Use the environment variable for the API URL
+    fetch(`${process.env.REACT_APP_API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -69,7 +70,7 @@ function SignupBody() {
         <div className="homeContainer-logo">
           <BsTwitter />
         </div>
-        <br></br>
+        <br />
         <div className="homeContainer-header">
           <h2>Join Twitter today</h2>
         </div>
@@ -79,13 +80,13 @@ function SignupBody() {
           <div> Sign up with Google</div>
         </a>
         <div className="homeContainer-hr">
-          <hr></hr>
+          <hr />
           <span>or</span>
-          <hr></hr>
+          <hr />
         </div>
         <form
           className="homeContainer-form"
-          action="http://localhost:5000/signup"
+          action={`${process.env.REACT_APP_API_URL}/signup`}
           method="post"
           onSubmit={handleSubmit}
         >
@@ -96,8 +97,8 @@ function SignupBody() {
             placeholder="Enter Email"
             value={email}
             onChange={handleChangeEmail}
-          ></input>
-          <br></br>
+          />
+          <br />
           <input
             required
             className="homeContainer-input"
@@ -105,8 +106,8 @@ function SignupBody() {
             placeholder="Enter Username"
             value={userName}
             onChange={handleChangeUserName}
-          ></input>
-          <br></br>
+          />
+          <br />
           <input
             required
             className="homeContainer-input"
@@ -114,8 +115,8 @@ function SignupBody() {
             placeholder="Enter Password"
             value={password}
             onChange={handleChangePassword}
-          ></input>
-          <br></br>
+          />
+          <br />
           <button className="homeContainer-btn" type="submit">
             Sign up
           </button>
