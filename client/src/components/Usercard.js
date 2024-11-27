@@ -8,7 +8,7 @@ function Usercard(props) {
         <div className="card-img">
           <img
             className="tweet-avatar"
-            src={`http://localhost:5000/images/${props.avatar}`}
+            src={`${process.env.REACT_APP_API_URL}/images/${props.avatar}`}
           ></img>
         </div>
         <div className="card-text">
