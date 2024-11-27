@@ -46,7 +46,9 @@ function HomeBody() {
       password: password,
     };
 
-    fetch("http://localhost:5000/", {
+    const apiUrl = process.env.REACT_APP_API_URL; // Access the API URL from the environment variable
+
+    fetch(`${apiUrl}/`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(oldPerson),
@@ -105,7 +107,7 @@ function HomeBody() {
 
         <form
           className="homeContainer-form"
-          action="http://localhost:5000/signup"
+          action={`${process.env.REACT_APP_API_URL}/signup`} // Use the environment variable here as well
           method="post"
           onSubmit={handleSubmit}
         >
