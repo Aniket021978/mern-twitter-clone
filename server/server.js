@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use("/images", express.static("images"));
 app.use("/tweetImages", express.static("tweetImages"));
 
-mongoose.connect("mongodb://localhost:27017/twitter", (err) => {
+mongoose.connect(process.env.DB_URI, (err) => {
   if (err) console.log(err);
   else console.log("mongdb is connected");
 });
@@ -38,7 +39,7 @@ app.post("/", (req, res) => {
           id: dbUser._id,
           username: dbUser.username,
         };
-        const token = jwt.sign(payload, "newSecretKey", { expiresIn: 86400 });
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 });
         return res.json({ status: "ok", user: token });
       } else {
         return res.json({ status: "error", user: false });
