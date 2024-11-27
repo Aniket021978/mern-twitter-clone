@@ -14,22 +14,21 @@ function Comment(props) {
   const [isEdited, setIsEdited] = useState(props.body.isEdited);
   const commentId = props.body.postedCommentTime;
   const isUserActive = props.body.postedBy.username === props.user;
+  const apiUrl = process.env.REACT_APP_API_URL; // Get the API URL from environment variable
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const action = e.currentTarget.action;
 
-    fetch(`${action}`, {
+    fetch(`${apiUrl}${action}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then(console.log("success"))
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         setLikeCount(data.likes);
         setBtnColor(data.btnColor);
@@ -44,7 +43,7 @@ function Comment(props) {
 
     const action = e.target.action;
 
-    fetch(`${action}`, {
+    fetch(`${apiUrl}${action}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +70,7 @@ function Comment(props) {
 
     const action = e.target.action;
 
-    fetch(`${action}`, {
+    fetch(`${apiUrl}${action}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,11 +100,11 @@ function Comment(props) {
       <div className="parent-flex-introduction">
         <img
           className="tweet-avatar"
-          src={`http://localhost:5000/images/${props.body.postedBy.avatar}`}
+          src={`${apiUrl}/images/${props.body.postedBy.avatar}`}
         ></img>
         <Link to={`/profile/${props.body.postedBy.username}`}>
           <div style={{ marginBottom: "5px" }} className="flex-introduction">
-            <div className="postedBy">{props.body.postedBy.username}</div>.
+            <div className="postedBy">{props.body.postedBy.username}</div> .
             <div className="time">{props.body.postedCommentTime}</div>
             <div>{isEdited ? ". edited" : ""}</div>
           </div>
@@ -115,7 +114,6 @@ function Comment(props) {
           <Popup
             trigger={
               <button className="threeDots">
-                {" "}
                 <BsThreeDots />
               </button>
             }
@@ -126,7 +124,7 @@ function Comment(props) {
               <li>
                 <form
                   onSubmit={deleteComment}
-                  action={`http://localhost:5000/deleteComment/${commentId}`}
+                  action={`${apiUrl}/deleteComment/${commentId}`}
                   style={{ marginBottom: "0", color: "#F75D59" }}
                 >
                   <button className="delete-btn">
@@ -150,7 +148,7 @@ function Comment(props) {
                       onSubmit={(e) => {
                         editComment(e);
                       }}
-                      action={`http://localhost:5000/editComment/${commentId}`}
+                      action={`${apiUrl}/editComment/${commentId}`}
                     >
                       <input
                         required
@@ -163,12 +161,10 @@ function Comment(props) {
                       ></input>
                       <br></br>
                       <button className="tweetBtn" type="submit">
-                        {" "}
                         Edit
                       </button>
                     </form>
                   </div>
-                  ;{/* }} */}
                 </Popup>
               </li>
             </ul>
@@ -191,7 +187,7 @@ function Comment(props) {
             onSubmit={handleSubmit}
             style={{ marginBottom: "0" }}
             className="likeForm"
-            action={`http://localhost:5000/comment/${props.user}/like/${commentId}`}
+            action={`${apiUrl}/comment/${props.user}/like/${commentId}`}
             method="post"
           >
             <button>
