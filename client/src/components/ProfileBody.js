@@ -30,15 +30,15 @@ function ProfileBody() {
   const handleFollow = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/user/${activeUser}/follow/${userName}`, {
+    const apiUrl = process.env.REACT_APP_API_URL; // Using environment variable
+
+    fetch(`${apiUrl}/user/${activeUser}/follow/${userName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         setFollowers(data.followers);
         setFollowBtn(data.followBtn);
@@ -49,7 +49,9 @@ function ProfileBody() {
   };
 
   async function populateUserData() {
-    const req = await fetch(`http://localhost:5000/profile/${userName}`, {
+    const apiUrl = process.env.REACT_APP_API_URL; // Using environment variable
+
+    const req = await fetch(`${apiUrl}/profile/${userName}`, {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -81,8 +83,10 @@ function ProfileBody() {
   }, []);
 
   const handleSubmitAvatar = (e) => {
+    const apiUrl = process.env.REACT_APP_API_URL; // Using environment variable
+
     axios
-      .post(`http://localhost:5000/avatar/${activeUser}`, {
+      .post(`${apiUrl}/avatar/${activeUser}`, {
         avatar: `Avatar-${e.target.id}.png`,
       })
       .then((response) => {
@@ -95,7 +99,7 @@ function ProfileBody() {
       <div className="flex-avatar">
         <img
           className="profile-avatar"
-          src={`http://localhost:5000/images/${avatar}`}
+          src={`${process.env.REACT_APP_API_URL}/images/${avatar}`} // Using environment variable
         ></img>
         {isActiveUser && (
           <Popup
@@ -105,141 +109,19 @@ function ProfileBody() {
           >
             {(close) => (
               <div className="choose-avatar-container">
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="1"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-1.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="2"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-2.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="3"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-3.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="4"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-4.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="5"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-5.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="6"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-6.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="7"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-7.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="8"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-8.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="9"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-9.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="10"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-10.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="11"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-11.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="12"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-12.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="13"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-13.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="14"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-14.png`}
-                ></img>
-                <img
-                  onClick={(e) => {
-                    close();
-                    handleSubmitAvatar(e);
-                  }}
-                  id="15"
-                  className="choose-profile-avatar"
-                  src={`http://localhost:5000/images/Avatar-15.png`}
-                ></img>
+                {/* Similar image elements for avatar selection */}
+                {[...Array(15)].map((_, idx) => (
+                  <img
+                    key={idx}
+                    onClick={(e) => {
+                      close();
+                      handleSubmitAvatar(e);
+                    }}
+                    id={idx + 1}
+                    className="choose-profile-avatar"
+                    src={`${process.env.REACT_APP_API_URL}/images/Avatar-${idx + 1}.png`} // Using environment variable
+                  ></img>
+                ))}
               </div>
             )}
           </Popup>
@@ -256,7 +138,7 @@ function ProfileBody() {
       {!isActiveUser && (
         <div className="followBtn-div">
           <form
-            action={`http://localhost:5000/user/${activeUser}/follow/${userName}`}
+            action={`${process.env.REACT_APP_API_URL}/user/${activeUser}/follow/${userName}`} // Using environment variable
             method="POST"
             className="follow-form"
             onSubmit={handleFollow}
