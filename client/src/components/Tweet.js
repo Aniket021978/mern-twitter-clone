@@ -38,7 +38,7 @@ function Tweet(props) {
   };
 
   async function populateComments() {
-    const req = await fetch(`http://localhost:5000/feed/comments/${tweetId}`, {
+    const req = await fetch(`${process.env.REACT_APP_API_URL}/feed/comments/${tweetId}`, {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -237,7 +237,7 @@ function Tweet(props) {
             <div className="parent-flex-introduction">
               <img
                 className="tweet-avatar"
-                src={`http://localhost:5000/images/${props.body.postedBy.avatar}`}
+                src={`${process.env.REACT_APP_API_URL}/images/${props.body.postedBy.avatar}`}
               ></img>
               <Link to={`/profile/${props.body.postedBy.username}`}>
                 <div className="flex-introduction">
@@ -263,7 +263,7 @@ function Tweet(props) {
                       <li>
                         <form
                           onSubmit={deleteTweet}
-                          action={`http://localhost:5000/deleteTweet/${tweetId}`}
+                          action={`${process.env.REACT_APP_API_URL}/deleteTweet/${tweetId}`}
                           style={{ marginBottom: "0", color: "#F75D59" }}
                         >
                           <button className="delete-btn">
@@ -289,7 +289,7 @@ function Tweet(props) {
                                   editTweet(e);
                                   close();
                                 }}
-                                action={`http://localhost:5000/editTweet/${tweetId}`}
+                                action={`${process.env.REACT_APP_API_URL}/editTweet/${tweetId}`}
                               >
                                 <input
                                   required
@@ -326,7 +326,7 @@ function Tweet(props) {
                   onSubmit={handleSubmit}
                   style={{ marginBottom: "0" }}
                   className="likeForm"
-                  action={`http://localhost:5000/post/${props.user}/like/${tweetId}`}
+                  action={`${process.env.REACT_APP_API_URL}/post/${props.user}/like/${tweetId}`}
                   method="post"
                 >
                   <button>
@@ -340,7 +340,7 @@ function Tweet(props) {
                   onSubmit={handleRetweetSubmit}
                   style={{ marginBottom: "0" }}
                   className="retweetForm"
-                  action={`http://localhost:5000/post/${props.user}/retweet/${tweetId}`}
+                  action={`${process.env.REACT_APP_API_URL}/post/${props.user}/retweet/${tweetId}`}
                 >
                   <button>
                     <AiOutlineRetweet />
@@ -378,7 +378,7 @@ function Tweet(props) {
                         close();
                       }}
                       method="post"
-                      action={`http://localhost:5000/feed/comment/${tweetId}`}
+                      action={`${process.env.REACT_APP_API_URL}/feed/comment/${tweetId}`}
                     >
                       <input
                         autoFocus
