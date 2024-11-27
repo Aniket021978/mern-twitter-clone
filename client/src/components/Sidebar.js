@@ -31,7 +31,7 @@ function Sidebar() {
   };
 
   async function populateUser() {
-    const req = await fetch("http://localhost:5000/feed", {
+    const req = await fetch(`${process.env.REACT_APP_API_URL}/feed`, {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -140,7 +140,7 @@ function Sidebar() {
                 }}
                 method="post"
                 encType="multipart/form-data"
-                action="http://localhost:5000/feed"
+                action={`${process.env.REACT_APP_API_URL}/feed`}
                 className="tweet-form"
                 id="form1"
               >
